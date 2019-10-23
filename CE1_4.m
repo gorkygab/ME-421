@@ -6,8 +6,9 @@ simin.time = T_e*(0:(N-1))';
 
 K = 100;
 
-sim CE1
-y = simout.data;
+out = sim('CE1', 'StopTime', num2str((N - 1)*T_e));
+y = out.simout.data;
+
 R_yu = intcor(y, u);
 R_uu = intcor(u, u);
 % R_yu = unbiased_intcor(y, u);

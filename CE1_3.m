@@ -1,15 +1,15 @@
 T_e = 0.1;
 N = 400;
 K = 100;
-M = 1000;
+M = 10;
 
+simin.time = T_e*(0:(N-1))';
 THETA_MEAN = zeros(1, K);
 for i = 1:M
-    simin.signals.values = rand(400,1) - 0.5;
+    simin.signals.values = rand(N, 1) - 0.5;
     U = toeplitz(simin.signals.values, [simin.signals.values(1) zeros(1, N-1)]);
-    simin.time = T_e*(0:(N-1))';
-    sim CE1
-    THETA = (U(:,1:K)'*U(:,1:K))\U(:,1:K)'*simout.data(1:end-1);
+    out = sim('CE1', 'StopTime', num2str((N - 1)*T_e));
+    THETA = (U(:,1:K)'*U(:,1:K))\U(:,1:K)'*out.simout.data;
     THETA_MEAN = THETA_MEAN + THETA;
 end
 
