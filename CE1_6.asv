@@ -8,10 +8,9 @@ u=u(1:2000,:);
 %u = prbs(N,p);
 M = 100;
 %Hann window:
-%f = [0.5 + 0.5*cos(pi/M*(0:M)) zeros(1, N-M-1)]';
-f = ones(N,1);
-%number of blocks:
-m = 50; 
+f = [0.5 + 0.5*cos(pi/M*(0:M)) zeros(1, N-M-1)]';
+f = ones
+m = 1; %number of blocks
 
 simin.signals.values = u;
 simin.time = T_e*(0:(N-1))';
@@ -22,6 +21,7 @@ y = out.simout.data;
 phi_hat_yu = zeros(N/m, 1);
 phi_hat_uu = zeros(N/m, 1);
 
+%% Method of averaging
 for i = 0:m-1
     phi_hat_yu = phi_hat_yu + fft(intcor(y(1+i*N/m:(i+1)*N/m), u(1+i*N/m:(i+1)*N/m)).*f(1:N/m));
     phi_hat_uu = phi_hat_uu + fft(intcor(u(1+i*N/m:(i+1)*N/m), u(1+i*N/m:(i+1)*N/m)).*f(1:N/m));
