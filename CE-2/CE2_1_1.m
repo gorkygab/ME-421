@@ -12,6 +12,7 @@ y_hat = phi*theta_hat;
 hold on
 plot(t, y, 'b')
 plot(t, y_hat, 'r')
+title('System Output')
 legend({'$y$', '$\hat{y}$'},'Interpreter','latex')
 xlabel('Time [s]')
 ylabel('Beam position [m]')
