@@ -27,7 +27,13 @@ U_ort = eye(N) - U'/(U*U')*U;
 
 Q = Y*U_ort;
 S = svd(Q);
-O_r = Q(:,S > S(1)/10);
+
+hold on
+plot(S, '*')
+line(xlim, S(1)/5*[1 1], 'Color', 'red')
+title('Singular values of Q')
+
+O_r = Q(:,S > S(1)/5);
 n = size(O_r, 2);
 
 C_hat = O_r(1,:);
@@ -43,6 +49,7 @@ B_hat = (phi'*phi)\phi'*y;
 sys = ss(A_hat, B_hat, C_hat, 0, 1/f);
 y_hat = lsim(sys, u);
 
+figure
 hold on
 plot(t, y_hat, 'r')
 plot(t, y, 'b')
