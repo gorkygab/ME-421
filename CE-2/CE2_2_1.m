@@ -1,3 +1,4 @@
+%% Init
 load('CE2.mat')
 N = length(u);
 t = (0:N-1)*Te;
@@ -5,6 +6,7 @@ t = (0:N-1)*Te;
 data = iddata(y, u, Te);
 data = detrend(data);
 
+%% 1
 U = fft(data.u);
 Y = fft(data.y);
 
@@ -18,6 +20,7 @@ frqs = frqs(non_zeros);
 sys = frd(G', frqs);
 bode(sys)
 
+%% 2
 loss_func = zeros(1, 10);
 for n = 1:10
     sys_arx = arx(data, [n n 1]);
@@ -27,6 +30,7 @@ end
 figure
 plot(loss_func)
 
+%% 3
 for n = 4:7
     sys_armax = armax(data, [n n n 1]);
     figure
@@ -35,13 +39,13 @@ for n = 4:7
     showConfidence(h, 2)
 end
 
+%% 4
 n = 5;
 sys_armax = armax(data, [n, n, n, 1]);
 
 figure
 errorbar(sys_armax.b, sys_armax.db)
 
-%% 4
 figure
 hold on
 for i = 1:n
@@ -50,20 +54,7 @@ for i = 1:n
 end
 
 %% 5
-data_inv = detrend(iddata(u, y, Te));
 
-NN = struc(1:5, 5, 1);
-V = arxstruc(data, data_inv, NN);
-[NNa, Vma] = selstruc(V, 0);
-costa = Vma(1,NNa(1));
-
-NN = struc(5, 1:5, 1);
-V = arxstruc(data, data_inv, NN);
-NNb = selstruc(V, 0);
-costb = Vma(1,NNb(1));
-
-if costa < costb
-    NN = NNa;
-else
-    NN = NNb;
-end
+NN = struc(1:5, 1:5, 1);
+V = arxstruc(data, data, NN);
+selstruc(V);
