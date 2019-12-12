@@ -14,7 +14,7 @@ threshold = 0.1*max(U);
 non_zeros = abs(U) > threshold;
 
 G = Y(non_zeros)./U(non_zeros);
-frqs = (0:N-1)/Te/N;
+frqs = (0:N-1)*2*pi/Te/N;
 frqs = frqs(non_zeros);
 
 sys = frd(G', frqs);
