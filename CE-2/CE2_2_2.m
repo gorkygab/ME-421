@@ -1,7 +1,6 @@
 %% Init
 load('CE2.mat')
 N = length(u);
-t = (0:N-1)*Te;
 
 %% 1
 training_ratio = 0.5;
